@@ -1,6 +1,6 @@
-===========================================================================
 CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-SHAREALIKE 3.0 UNPORTED LICENSE
-===========================================================================
+--------------------
+<pre>
 Creative Commons <http://creativecommons.org/>
 
 
@@ -375,10 +375,10 @@ LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
     doubt, this trademark restriction does not form part of this License.
 
     Creative Commons may be contacted at http://creativecommons.org/.
-	
-===========================================================================
+</pre>
 EDUCATIONAL COMMUNITY LICENSE, VERSION 2.0
-===========================================================================
+--------------------
+<pre>
 Version 2.0, April 2007 
 The Educational Community License version 2.0 ("ECL") consists of the Apache 2.0 license, modified to change the scope of the patent grant in section 3 to be specific to the needs of the education communities using this license. The original Apache 2.0 license can be found at: http://www.apache.org/licenses/LICENSE-2.0 
 TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
@@ -420,3 +420,4 @@ To apply the Educational Community License to your work, attach the following bo
 	BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 	or implied. See the License for the specific language governing
 	permissions and limitations under the License.
+</pre>

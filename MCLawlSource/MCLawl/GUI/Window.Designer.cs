@@ -127,6 +127,7 @@ namespace MCSong.Gui
             this.iconContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.shutdownServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -165,6 +166,7 @@ namespace MCSong.Gui
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.btnPlay);
             this.tabPage1.Controls.Add(this.btnClose);
             this.tabPage1.Controls.Add(this.btnRestart);
@@ -274,35 +276,35 @@ namespace MCSong.Gui
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem2.Text = "0";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem3.Text = "1";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem4.Text = "2";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem5.Text = "3";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem6.Text = "4";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
@@ -330,49 +332,49 @@ namespace MCSong.Gui
             // finiteModeToolStripMenuItem
             // 
             this.finiteModeToolStripMenuItem.Name = "finiteModeToolStripMenuItem";
-            this.finiteModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.finiteModeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.finiteModeToolStripMenuItem.Text = "Finite Mode";
             this.finiteModeToolStripMenuItem.Click += new System.EventHandler(this.finiteModeToolStripMenuItem_Click);
             // 
             // animalAIToolStripMenuItem
             // 
             this.animalAIToolStripMenuItem.Name = "animalAIToolStripMenuItem";
-            this.animalAIToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.animalAIToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.animalAIToolStripMenuItem.Text = "Animal AI";
             this.animalAIToolStripMenuItem.Click += new System.EventHandler(this.animalAIToolStripMenuItem_Click);
             // 
             // edgeWaterToolStripMenuItem
             // 
             this.edgeWaterToolStripMenuItem.Name = "edgeWaterToolStripMenuItem";
-            this.edgeWaterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.edgeWaterToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.edgeWaterToolStripMenuItem.Text = "Edge Water";
             this.edgeWaterToolStripMenuItem.Click += new System.EventHandler(this.edgeWaterToolStripMenuItem_Click);
             // 
             // growingGrassToolStripMenuItem
             // 
             this.growingGrassToolStripMenuItem.Name = "growingGrassToolStripMenuItem";
-            this.growingGrassToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.growingGrassToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.growingGrassToolStripMenuItem.Text = "Grass Growing";
             this.growingGrassToolStripMenuItem.Click += new System.EventHandler(this.growingGrassToolStripMenuItem_Click);
             // 
             // survivalDeathToolStripMenuItem
             // 
             this.survivalDeathToolStripMenuItem.Name = "survivalDeathToolStripMenuItem";
-            this.survivalDeathToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.survivalDeathToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.survivalDeathToolStripMenuItem.Text = "Survival Death";
             this.survivalDeathToolStripMenuItem.Click += new System.EventHandler(this.survivalDeathToolStripMenuItem_Click);
             // 
             // killerBlocksToolStripMenuItem
             // 
             this.killerBlocksToolStripMenuItem.Name = "killerBlocksToolStripMenuItem";
-            this.killerBlocksToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.killerBlocksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.killerBlocksToolStripMenuItem.Text = "Killer Blocks";
             this.killerBlocksToolStripMenuItem.Click += new System.EventHandler(this.killerBlocksToolStripMenuItem_Click);
             // 
             // rPChatToolStripMenuItem
             // 
             this.rPChatToolStripMenuItem.Name = "rPChatToolStripMenuItem";
-            this.rPChatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rPChatToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.rPChatToolStripMenuItem.Text = "RP Chat";
             this.rPChatToolStripMenuItem.Click += new System.EventHandler(this.rPChatToolStripMenuItem_Click);
             // 
@@ -495,7 +497,6 @@ namespace MCSong.Gui
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(534, 94);
             this.button1.Name = "button1";
@@ -520,9 +521,9 @@ namespace MCSong.Gui
             // txtHost
             // 
             this.txtHost.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHost.Location = new System.Drawing.Point(518, 136);
+            this.txtHost.Location = new System.Drawing.Point(566, 136);
             this.txtHost.Name = "txtHost";
-            this.txtHost.Size = new System.Drawing.Size(120, 21);
+            this.txtHost.Size = new System.Drawing.Size(91, 21);
             this.txtHost.TabIndex = 28;
             this.txtHost.Text = "Alive";
             this.txtHost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -836,6 +837,15 @@ namespace MCSong.Gui
             this.shutdownServer.Text = "Shutdown Server";
             this.shutdownServer.Click += new System.EventHandler(this.shutdownServer_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(501, 139);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "Host State:";
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -948,5 +958,6 @@ namespace MCSong.Gui
         private Label label5;
         private TextBox txtLogOp;
         private TextBox txtLogPublic;
+        private Label label6;
     }
 }

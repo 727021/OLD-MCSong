@@ -48,6 +48,7 @@ namespace MCSong
             all.Add(new CmdBotSet());
             all.Add(new CmdBotSummon());
             all.Add(new CmdClearBlockChanges());
+            all.Add(new CmdClearchat());
             all.Add(new CmdClick());
             all.Add(new CmdClones());
             all.Add(new CmdCmdBind());
@@ -177,6 +178,7 @@ namespace MCSong
             all.Add(new CmdView());
             all.Add(new CmdViewRanks());
             all.Add(new CmdVoice());
+            all.Add(new CmdWarn());
             all.Add(new CmdWhisper());
             if (Server.useWhitelist) { all.Add(new CmdWhitelist()); }
             all.Add(new CmdWhoip());

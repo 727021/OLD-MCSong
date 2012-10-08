@@ -47,6 +47,18 @@ namespace MCSong.Gui
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                const int CS_NOCLOSE = 0x200;
+
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_NOCLOSE;
+                return cp;
+            }
+        }
+
         private void Window_Minimize(object sender, EventArgs e)
         {
       /*     if (!Minimized)
@@ -134,10 +146,10 @@ namespace MCSong.Gui
         {
             txtChangelog.Clear();
             txtChangelog.AppendText("Changelog for MCSong Version: " + Server.Version);
-            if (File.Exists("text/changelog.txt"))
+            if (File.Exists("changelog.txt"))
             {
                 
-                foreach (string line in File.ReadAllLines("text/changelog.txt"))
+                foreach (string line in File.ReadAllLines("changelog.txt"))
                 {
                     txtChangelog.AppendText(Environment.NewLine + line);
                 }
@@ -148,8 +160,7 @@ namespace MCSong.Gui
                 try
                 {
                     WEB.DownloadFile(new Uri("http://mcsong.comule.com/updates/text/changelog.txt"), "changelog.txt");
-                    File.Move("changelog.txt", "text/changelog.txt");
-                    foreach (string line in File.ReadAllLines("text/changelog.txt"))
+                    foreach (string line in File.ReadAllLines("changelog.txt"))
                     {
                         txtChangelog.AppendText(Environment.NewLine + line);
                     }
@@ -157,7 +168,8 @@ namespace MCSong.Gui
                 catch (Exception ex)
                 {
                     Server.ErrorLog(ex);
-                    txtChangelog.AppendText(Environment.NewLine + "Changelog update failed." + Environment.NewLine + "Please put the file from http://updates.mcsong.comule.com/text/changelog.txt into your /text/ folder," + Environment.NewLine + "then restart the server to load the changelog.");
+                    txtChangelog.Clear();
+                    txtChangelog.AppendText(Environment.NewLine + "Changelog update failed." + Environment.NewLine + "Please put the file from http://updates.mcsong.comule.com/text/changelog.txt near your server, then restart the server to load the changelog.");
                     return;
                 }
             }
@@ -677,6 +689,7 @@ namespace MCSong.Gui
             }
         }
 
+        #region Chat Channels Tab
         private void txtInputAdmin_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -724,7 +737,8 @@ namespace MCSong.Gui
                 txtInputPublic.Clear();
             }
         }
-
+        #endregion
+        
         private void btnRestart_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Are you sure you want to restart the server?", "Restart?", MessageBoxButtons.YesNo);
@@ -740,7 +754,7 @@ namespace MCSong.Gui
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if ((txtUrl.Text == null) || (txtUrl.Text.Trim() == "")) { return; }
+            if ((txtUrl.Text == null) || (txtUrl.Text.Trim() == "") || (!txtUrl.Text.StartsWith("http"))) { MessageBox.Show("Could not launch the web browser with the given url.", "Url Invalid!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             System.Diagnostics.Process.Start(txtUrl.Text);
         }
     }

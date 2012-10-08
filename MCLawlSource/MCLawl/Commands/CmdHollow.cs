@@ -10,7 +10,6 @@ namespace MCSong
         public override string type { get { return "build"; } }
         public override bool museumUsable { get { return false; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Builder; } }
-        public CmdHollow() { }
 
         public override void Use(Player p, string message)
         {

@@ -25,7 +25,6 @@ namespace MCSong
         public override bool museumUsable { get { return false; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Admin; } }
         public string[,] botlist;
-        public CmdBotRemove() { }
 
         public override void Use(Player p, string message)
         {

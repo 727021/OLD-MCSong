@@ -81,6 +81,8 @@ namespace MCSong
         public bool whisper = false;
         public string whisperTo = "";
 
+        public bool warned = false;
+
         public string storedMessage = "";
 
         public bool trainGrab = false;
@@ -467,7 +469,7 @@ namespace MCSong
                     }
                     else
                     {
-                        Kick("You're still banned (temporary ban) until: " + tBan.allowedJoin.ToString());
+                        Kick("You're still banned (temporary ban until: " + tBan.allowedJoin.ToString() + ")");
                     }
                 } catch { }
                 // OMNI BAN

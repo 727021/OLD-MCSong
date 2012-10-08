@@ -24,7 +24,6 @@ namespace MCSong
         public override string type { get { return "moderation"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Builder; } }
-        public CmdTempBan() { }
 
         public override void Use(Player p, string message)
         {

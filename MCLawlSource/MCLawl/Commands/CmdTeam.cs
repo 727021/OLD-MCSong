@@ -10,7 +10,6 @@ namespace MCSong
         public override string name { get { return "team"; } }
         public override string shortcut { get { return ""; } }
         public override string type { get { return "other"; } }
-        public CmdTeam() { }
         public override bool museumUsable { get { return false; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Builder; } }
         public override void Use(Player p, string message)

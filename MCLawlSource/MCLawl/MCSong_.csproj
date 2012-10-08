@@ -90,6 +90,7 @@
     <Compile Include="AutoSaver.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="Commands\CmdAdminChat.cs" />
+    <Compile Include="Commands\CmdClearchat.cs" />
     <Compile Include="Commands\CmdPossess.cs" />
     <Compile Include="Commands\CmdTColor.cs" />
     <Compile Include="Commands\CmdCmdUnload.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Commands\CmdAward.cs" />
     <Compile Include="Commands\CmdAwards.cs" />
     <Compile Include="Commands\CmdAwardMod.cs" />
+    <Compile Include="Commands\CmdWarn.cs" />
     <Compile Include="CTFGame.cs" />
     <Compile Include="FindReference.cs" />
     <Compile Include="Color.cs" />

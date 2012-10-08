@@ -12,7 +12,6 @@ namespace MCSong
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.AdvBuilder; } }
         public int allowoffset = 0;
-        public CmdCopy() { }
 
         public override void Use(Player p, string message)
         {

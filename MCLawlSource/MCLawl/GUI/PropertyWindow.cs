@@ -16,6 +16,18 @@ namespace MCSong.Gui
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                const int CS_NOCLOSE = 0x200;
+
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_NOCLOSE;
+                return cp;
+            }
+        }
+
         private void PropertyWindow_Load(object sender, EventArgs e) {
             Icon = Gui.Window.ActiveForm.Icon;
 
@@ -170,11 +182,11 @@ namespace MCSong.Gui
                         {
                             case "server-name":
                                 if (ValidString(value, "![]:.,{}~-+()?_/\\ ")) txtName.Text = value;
-                                else txtName.Text = "[MCZall] Minecraft server";
+                                else txtName.Text = "[MCSong] Default";
                                 break;
                             case "motd":
                                 if (ValidString(value, "![]&:.,{}~-+()?_/\\ ")) txtMOTD.Text = value;
-                                else txtMOTD.Text = "Welcome to my server!";
+                                else txtMOTD.Text = "Welcome!";
                                 break;
                             case "port":
                                 try { txtPort.Text = Convert.ToInt32(value).ToString(); }
@@ -266,10 +278,16 @@ namespace MCSong.Gui
                                 chkChatSpam.Checked = (value.ToLower() == "true") ? true : false;
                                 break;
                             case "chat-spam-count":
-                                numChatSpamCount.Value = Convert.ToInt32(value);
+                               // numChatSpamCount.Value = Convert.ToInt32(value);
+                               // numChatSpamCount.Update();
+                                try { txtChatCount.Text = Convert.ToInt32(value).ToString(); }
+                                catch { txtChatCount.Text = "13"; }
                                 break;
                             case "chat-spam-seconds":
-                                numChatSpamSeconds.Value = Convert.ToInt32(value);
+                               // numChatSpamSeconds.Value = Convert.ToInt32(value);
+                               // numChatSpamSeconds.Update();
+                                try { txtChatTime.Text = Convert.ToInt32(value).ToString(); }
+                                catch { txtChatTime.Text = "5"; }
                                 break;
                             case "chat-spam-consequence":
                                 cmbChatSpamCon.SelectedIndex = cmbChatSpamCon.Items.IndexOf(value.ToLower());
@@ -279,10 +297,16 @@ namespace MCSong.Gui
                                 chkBlockSpam.Checked = (value.ToLower() == "true") ? true : false;
                                 break;
                             case "block-spam-count":
-                                numBlockSpamCount.Value = Convert.ToInt32(value);
+                               // numBlockSpamCount.Value = Convert.ToInt32(value);
+                               // numBlockSpamCount.Update();
+                                try { txtBlockCount.Text = Convert.ToInt32(value).ToString(); }
+                                catch { txtBlockCount.Text = "13"; }
                                 break;
                             case "block-spam-seconds":
-                                numBlockSpamTime.Value = Convert.ToInt32(value);
+                               // numBlockSpamTime.Value = Convert.ToInt32(value);
+                               // numBlockSpamTime.Update();
+                                try { txtBlockTime.Text = Convert.ToInt32(value).ToString(); }
+                                catch { txtBlockTime.Text = "5"; }
                                 break;
                             case "block-spam-consequence":
                                 cmbBlockSpamConsequence.SelectedIndex = cmbBlockSpamConsequence.Items.IndexOf(value.ToLower());
@@ -420,6 +444,38 @@ namespace MCSong.Gui
                 //Save(givenPath);
             }
             //else Save(givenPath);
+            if (File.Exists("properties/update.properties"))
+            {
+                string[] lines = File.ReadAllLines(givenPath);
+
+                foreach (string line in lines)
+                {
+                    if (line != "" && line[0] != '#')
+                    {
+                        //int index = line.IndexOf('=') + 1; // not needed if we use Split('=')
+                        string key = line.Split('=')[0].Trim();
+                        string value = line.Split('=')[1].Trim();
+
+                        switch (key.ToLower())
+                        {
+                            case "autoupdate":
+                                chkAutoUpdate.Checked = (value.ToLower() == "true") ? true : false;
+                                chkAutoUpdate.Update();
+                                break;
+                            case "notify":
+                                chkNotify.Checked = (value.ToLower() == "true") ? true : false;
+                                chk17Dollar.Update();
+                                break;
+                            case "restartcountdown":
+                               // numUpdateCountdown.Value = Convert.ToInt32(value);
+                               // numUpdateCountdown.Update();
+                                try { txtUpdater.Text = Convert.ToInt32(value).ToString(); }
+                                catch { txtUpdater.Text = "10"; }
+                                break;
+                        }
+                    }
+                }
+            }
         }
         public bool ValidString(string str, string allowed) {
             string allowedchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890" + allowed;
@@ -503,13 +559,17 @@ namespace MCSong.Gui
                     w.WriteLine("max-depth = " + txtDepth.Text);
                     w.WriteLine("tunnel-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbTunnelRank.Items[cmbTunnelRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("chat-spam = " + chkChatSpam.Checked.ToString().ToLower());
-                    w.WriteLine("chat-spam-count = " + numChatSpamCount.Value.ToString());
-                    w.WriteLine("chat-spam-seconds = " + numChatSpamCount.Value.ToString());
+                   /* w.WriteLine("chat-spam-count = " + numChatSpamCount.Value.ToString());
+                    w.WriteLine("chat-spam-seconds = " + numChatSpamCount.Value.ToString()); */
+                    w.WriteLine("chat-spam-count = " + txtChatCount.Text);
+                    w.WriteLine("chat-spam-seconds = " + txtChatTime.Text);
                     w.WriteLine("chat-spam-consequence = " + cmbChatSpamCon.Items[cmbChatSpamCon.SelectedIndex].ToString().ToLower());
                     w.WriteLine("chat-spam-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbChatSpamRank.Items[cmbChatSpamRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("block-spam = " + chkBlockSpam.Checked.ToString().ToLower());
-                    w.WriteLine("block-spam-count = " + numBlockSpamCount.Value.ToString());
-                    w.WriteLine("block-spam-seconds = " + numBlockSpamTime.Value.ToString());
+                   /* w.WriteLine("block-spam-count = " + numBlockSpamCount.Value.ToString());
+                    w.WriteLine("block-spam-seconds = " + numBlockSpamTime.Value.ToString()); */
+                    w.WriteLine("block-spam-count = " + txtBlockCount.Text);
+                    w.WriteLine("block-spam-seconds = " + txtBlockTime.Text);
                     w.WriteLine("block-spam-consequence = " + cmbBlockSpamConsequence.Items[cmbBlockSpamConsequence.SelectedIndex].ToString().ToLower());
                     w.WriteLine("block-spam-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbBlockSpamRank.Items[cmbBlockSpamRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("rplimit = " + txtRP.Text);
@@ -571,6 +631,27 @@ namespace MCSong.Gui
             {
                 Server.ErrorLog(e);
                 Server.s.Log("SAVE FAILED! " + givenPath);
+            }
+            try
+            {
+                StreamWriter SW = new StreamWriter(File.Create(givenPath));
+                SW.WriteLine("#This file manages the update process");
+                SW.WriteLine("#Toggle AutoUpdate to true for the server to automatically update");
+                SW.WriteLine("#Notify notifies players in-game of impending restart");
+                SW.WriteLine("#Restart Countdown is how long in seconds the server will count before restarting and updating");
+                SW.WriteLine();
+                SW.WriteLine("autoupdate= " + chkAutoUpdate.Checked.ToString());
+                SW.WriteLine("notify = " + chkNotify.Checked.ToString());
+               // SW.WriteLine("restartcountdown = " + numUpdateCountdown.Value.ToString());
+                SW.WriteLine("restartcountdown = " + txtUpdater.Text);
+                SW.Flush();
+                SW.Close();
+                SW.Dispose();
+            }
+            catch(Exception ex)
+            {
+                Server.ErrorLog(ex);
+                Server.s.Log("SAVE FAILED! properties/update.properties");
             }
         }
 

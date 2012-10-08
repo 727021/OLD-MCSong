@@ -23,7 +23,6 @@ namespace MCSong
         public override string type { get { return "information"; } }
         public override bool museumUsable { get { return false; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Operator; } }
-        public CmdPhysics() { }
 
         public override void Use(Player p, string message)
         {

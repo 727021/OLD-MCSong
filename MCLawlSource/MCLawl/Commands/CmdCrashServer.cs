@@ -12,12 +12,11 @@ namespace MCSong
         public override string type { get { return "mod"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Banned; } }
-        public CmdCrashServer() { }
 
         public override void Use(Player p, string message)
         {
             if (message != "") { Help(p); return; }
-            Player.GlobalMessageOps(p.color + Server.DefaultColor + " used &b/crashserver");
+            Player.GlobalMessageOps(p.color + p.name + Server.DefaultColor + " used &b/crashserver");
             p.Kick("Server crash! Error code 0x0005A4");
         }
         public override void Help(Player p)

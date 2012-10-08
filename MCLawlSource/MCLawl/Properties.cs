@@ -460,6 +460,33 @@ namespace MCSong
                 Save(givenPath);
             }
             else Save(givenPath);
+            if (File.Exists("properties/update.properties"))
+            {
+                string[] lines = File.ReadAllLines("properties/update.properties");
+
+                foreach (string line in lines)
+                {
+                    if (line != "" && line[0] != '#')
+                    {
+                        string key = line.Split('=')[0].Trim();
+                        string value = line.Split('=')[1].Trim();
+
+                        switch (key.ToLower())
+                        {
+                            case "autoupdate":
+                                Server.autoupdate = (value.ToLower() == "true") ? true : false;
+                                break;
+                            case "notify":
+                                Server.autonotify = (value.ToLower() == "true") ? true : false;
+                                break;
+                            case "restartcountdown":
+                                Server.restartcountdown = value;
+                                break;
+                        }
+                    }
+                }
+            }
+            else Save(givenPath);
         }
         public static bool ValidString(string str, string allowed)
         {
@@ -622,6 +649,25 @@ namespace MCSong
             catch
             {
                 Server.s.Log("SAVE FAILED! " + givenPath);
+            }
+            try
+            {
+                StreamWriter SW = new StreamWriter(File.Create("properties/update.properties"));
+                SW.WriteLine("#This file manages the update process");
+                SW.WriteLine("#Toggle AutoUpdate to true for the server to automatically update");
+                SW.WriteLine("#Notify notifies players in-game of impending restart");
+                SW.WriteLine("#Restartcountdown is how long in seconds the server will count before restarting and updating");
+                SW.WriteLine();
+                SW.WriteLine("autoupdate= " + Server.autoupdate.ToString());
+                SW.WriteLine("notify = " + Server.autonotify.ToString());
+                SW.WriteLine("restartcountdown = " + Server.restartcountdown);
+                SW.Flush();
+                SW.Close();
+                SW.Dispose();
+            }
+            catch
+            {
+                Server.s.Log("SAVE FAILED! properties/update.properties");
             }
         }
     }

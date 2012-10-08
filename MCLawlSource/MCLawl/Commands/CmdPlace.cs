@@ -9,7 +9,6 @@ namespace MCSong.Commands
         public override string type { get { return "build"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Guest; } }
-        public CmdPlace() { }
 
         public override void Use(Player p, string message)
         {

@@ -12,12 +12,11 @@ namespace MCSong
         public override string type { get { return "mod"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Banned; } }
-        public CmdHacks() { }
 
         public override void Use(Player p, string message)
         {
             if (message != "") { Help(p); return; }
-            p.Kick("Your IP has been backtraced + reported to FBI Cyber Crimes Unit.");
+            p.Kick("Your IP has been backtraced and reported to FBI Cyber Crimes Unit.");
 
         }
         public override void Help(Player p)

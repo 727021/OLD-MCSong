@@ -9,7 +9,6 @@ namespace MCSong
         public override string name { get { return "drop"; } }
         public override string shortcut { get { return ""; } }
         public override string type { get { return "other"; } }
-        public CmdDrop() { }
         public override bool museumUsable { get { return false; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Builder; } }
 

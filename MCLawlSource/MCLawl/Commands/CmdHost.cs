@@ -11,7 +11,6 @@ namespace MCSong
         public override string type { get { return "information"; } }
         public override bool museumUsable { get { return true; } }
         public override LevelPermission defaultRank { get { return LevelPermission.Banned; } }
-        public CmdHost() { }
 
         public override void Use(Player p, string message)
         {
@@ -21,7 +20,7 @@ namespace MCSong
         }
         public override void Help(Player p)
         {
-            Player.SendMessage(p, "/host - Shows what the host is up to.");
+            Player.SendMessage(p, "/host - Shows the server's host state/console name");
         }
     }
 }

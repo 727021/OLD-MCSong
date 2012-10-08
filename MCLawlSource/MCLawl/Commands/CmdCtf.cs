@@ -11,7 +11,6 @@ namespace MCSong
         public override string shortcut { get { return ""; } }
         public override string type { get { return "other"; } }
         public override bool museumUsable { get { return false; } }
-        public CmdCTF() { }
         public override LevelPermission defaultRank { get { return LevelPermission.Admin; } }
         public override void Use(Player p, string message)
         {

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PropertyWindow));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -63,8 +64,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.cmbBlockSpamConsequence = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
-            this.numBlockSpamTime = new System.Windows.Forms.NumericUpDown();
-            this.numBlockSpamCount = new System.Windows.Forms.NumericUpDown();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.cmbBlockSpamRank = new System.Windows.Forms.ComboBox();
@@ -77,6 +76,10 @@
             this.txtDepth = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.chkNotify = new System.Windows.Forms.CheckBox();
+            this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.chkRepeatMessages = new System.Windows.Forms.CheckBox();
             this.chkForceCuboid = new System.Windows.Forms.CheckBox();
             this.chkrankSuper = new System.Windows.Forms.CheckBox();
@@ -144,11 +147,9 @@
             this.chkWorld = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.numChatSpamSeconds = new System.Windows.Forms.NumericUpDown();
             this.label45 = new System.Windows.Forms.Label();
             this.cmbChatSpamCon = new System.Windows.Forms.ComboBox();
             this.label44 = new System.Windows.Forms.Label();
-            this.numChatSpamCount = new System.Windows.Forms.NumericUpDown();
             this.label46 = new System.Windows.Forms.Label();
             this.chkChatSpam = new System.Windows.Forms.CheckBox();
             this.cmbChatSpamRank = new System.Windows.Forms.ComboBox();
@@ -200,6 +201,11 @@
             this.btnDiscard = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.txtBlockCount = new System.Windows.Forms.TextBox();
+            this.txtBlockTime = new System.Windows.Forms.TextBox();
+            this.txtChatCount = new System.Windows.Forms.TextBox();
+            this.txtChatTime = new System.Windows.Forms.TextBox();
+            this.txtUpdater = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -207,17 +213,14 @@
             this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numBlockSpamTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numBlockSpamCount)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatSpamSeconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatSpamCount)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage7.SuspendLayout();
@@ -574,10 +577,10 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.txtBlockTime);
+            this.groupBox8.Controls.Add(this.txtBlockCount);
             this.groupBox8.Controls.Add(this.cmbBlockSpamConsequence);
             this.groupBox8.Controls.Add(this.label41);
-            this.groupBox8.Controls.Add(this.numBlockSpamTime);
-            this.groupBox8.Controls.Add(this.numBlockSpamCount);
             this.groupBox8.Controls.Add(this.label40);
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.cmbBlockSpamRank);
@@ -620,20 +623,6 @@
             this.label41.Size = new System.Drawing.Size(74, 13);
             this.label41.TabIndex = 32;
             this.label41.Text = "Consequence:";
-            // 
-            // numBlockSpamTime
-            // 
-            this.numBlockSpamTime.Location = new System.Drawing.Point(263, 64);
-            this.numBlockSpamTime.Name = "numBlockSpamTime";
-            this.numBlockSpamTime.Size = new System.Drawing.Size(42, 21);
-            this.numBlockSpamTime.TabIndex = 31;
-            // 
-            // numBlockSpamCount
-            // 
-            this.numBlockSpamCount.Location = new System.Drawing.Point(156, 64);
-            this.numBlockSpamCount.Name = "numBlockSpamCount";
-            this.numBlockSpamCount.Size = new System.Drawing.Size(42, 21);
-            this.numBlockSpamCount.TabIndex = 2;
             // 
             // label40
             // 
@@ -744,6 +733,7 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Controls.Add(this.chkRepeatMessages);
             this.tabPage4.Controls.Add(this.chkForceCuboid);
             this.tabPage4.Controls.Add(this.chkrankSuper);
@@ -777,6 +767,52 @@
             this.tabPage4.Size = new System.Drawing.Size(337, 404);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Misc";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.txtUpdater);
+            this.groupBox5.Controls.Add(this.label49);
+            this.groupBox5.Controls.Add(this.chkNotify);
+            this.groupBox5.Controls.Add(this.chkAutoUpdate);
+            this.groupBox5.Location = new System.Drawing.Point(8, 125);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(155, 85);
+            this.groupBox5.TabIndex = 30;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Updater";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(15, 58);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(64, 13);
+            this.label49.TabIndex = 7;
+            this.label49.Text = "Countdown:";
+            this.toolTip.SetToolTip(this.label49, "The time (in seconds) to count down before updating the server");
+            // 
+            // chkNotify
+            // 
+            this.chkNotify.AutoSize = true;
+            this.chkNotify.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNotify.Location = new System.Drawing.Point(3, 38);
+            this.chkNotify.Name = "chkNotify";
+            this.chkNotify.Size = new System.Drawing.Size(139, 17);
+            this.chkNotify.TabIndex = 6;
+            this.chkNotify.Text = "Notify in-game of restart";
+            this.chkNotify.UseVisualStyleBackColor = true;
+            // 
+            // chkAutoUpdate
+            // 
+            this.chkAutoUpdate.AutoSize = true;
+            this.chkAutoUpdate.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoUpdate.Location = new System.Drawing.Point(3, 19);
+            this.chkAutoUpdate.Name = "chkAutoUpdate";
+            this.chkAutoUpdate.Size = new System.Drawing.Size(133, 17);
+            this.chkAutoUpdate.TabIndex = 5;
+            this.chkAutoUpdate.Text = "Auto update to newest";
+            this.chkAutoUpdate.UseVisualStyleBackColor = true;
             // 
             // chkRepeatMessages
             // 
@@ -1417,7 +1453,7 @@
             // 
             this.chkWorld.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkWorld.AutoSize = true;
-            this.chkWorld.Location = new System.Drawing.Point(22, 20);
+            this.chkWorld.Location = new System.Drawing.Point(37, 17);
             this.chkWorld.Name = "chkWorld";
             this.chkWorld.Size = new System.Drawing.Size(69, 23);
             this.chkWorld.TabIndex = 4;
@@ -1438,11 +1474,11 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.numChatSpamSeconds);
+            this.groupBox6.Controls.Add(this.txtChatTime);
+            this.groupBox6.Controls.Add(this.txtChatCount);
             this.groupBox6.Controls.Add(this.label45);
             this.groupBox6.Controls.Add(this.cmbChatSpamCon);
             this.groupBox6.Controls.Add(this.label44);
-            this.groupBox6.Controls.Add(this.numChatSpamCount);
             this.groupBox6.Controls.Add(this.label46);
             this.groupBox6.Controls.Add(this.chkChatSpam);
             this.groupBox6.Controls.Add(this.cmbChatSpamRank);
@@ -1453,13 +1489,6 @@
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Spam Filter";
-            // 
-            // numChatSpamSeconds
-            // 
-            this.numChatSpamSeconds.Location = new System.Drawing.Point(264, 20);
-            this.numChatSpamSeconds.Name = "numChatSpamSeconds";
-            this.numChatSpamSeconds.Size = new System.Drawing.Size(42, 21);
-            this.numChatSpamSeconds.TabIndex = 40;
             // 
             // label45
             // 
@@ -1495,13 +1524,6 @@
             this.label44.Size = new System.Drawing.Size(74, 13);
             this.label44.TabIndex = 41;
             this.label44.Text = "Consequence:";
-            // 
-            // numChatSpamCount
-            // 
-            this.numChatSpamCount.Location = new System.Drawing.Point(161, 20);
-            this.numChatSpamCount.Name = "numChatSpamCount";
-            this.numChatSpamCount.Size = new System.Drawing.Size(42, 21);
-            this.numChatSpamCount.TabIndex = 33;
             // 
             // label46
             // 
@@ -2038,6 +2060,41 @@
             this.toolTip.ToolTipTitle = "Information";
             this.toolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip_Popup);
             // 
+            // txtBlockCount
+            // 
+            this.txtBlockCount.Location = new System.Drawing.Point(156, 63);
+            this.txtBlockCount.Name = "txtBlockCount";
+            this.txtBlockCount.Size = new System.Drawing.Size(40, 21);
+            this.txtBlockCount.TabIndex = 33;
+            // 
+            // txtBlockTime
+            // 
+            this.txtBlockTime.Location = new System.Drawing.Point(263, 63);
+            this.txtBlockTime.Name = "txtBlockTime";
+            this.txtBlockTime.Size = new System.Drawing.Size(40, 21);
+            this.txtBlockTime.TabIndex = 34;
+            // 
+            // txtChatCount
+            // 
+            this.txtChatCount.Location = new System.Drawing.Point(169, 19);
+            this.txtChatCount.Name = "txtChatCount";
+            this.txtChatCount.Size = new System.Drawing.Size(40, 21);
+            this.txtChatCount.TabIndex = 42;
+            // 
+            // txtChatTime
+            // 
+            this.txtChatTime.Location = new System.Drawing.Point(264, 19);
+            this.txtChatTime.Name = "txtChatTime";
+            this.txtChatTime.Size = new System.Drawing.Size(40, 21);
+            this.txtChatTime.TabIndex = 43;
+            // 
+            // txtUpdater
+            // 
+            this.txtUpdater.Location = new System.Drawing.Point(85, 55);
+            this.txtUpdater.Name = "txtUpdater";
+            this.txtUpdater.Size = new System.Drawing.Size(52, 21);
+            this.txtUpdater.TabIndex = 34;
+            // 
             // PropertyWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2049,7 +2106,9 @@
             this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PropertyWindow";
             this.Text = "Properties";
             this.Load += new System.EventHandler(this.PropertyWindow_Load);
@@ -2066,10 +2125,10 @@
             this.groupBox10.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numBlockSpamTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numBlockSpamCount)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -2081,8 +2140,6 @@
             this.groupBox14.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatSpamSeconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatSpamCount)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -2242,8 +2299,6 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.ComboBox cmbBlockSpamConsequence;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.NumericUpDown numBlockSpamTime;
-        private System.Windows.Forms.NumericUpDown numBlockSpamCount;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox cmbBlockSpamRank;
@@ -2258,11 +2313,9 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.NumericUpDown numChatSpamSeconds;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.ComboBox cmbChatSpamCon;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.NumericUpDown numChatSpamCount;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.CheckBox chkChatSpam;
         private System.Windows.Forms.ComboBox cmbChatSpamRank;
@@ -2272,5 +2325,14 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.CheckBox chkUPnP;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox chkNotify;
+        private System.Windows.Forms.CheckBox chkAutoUpdate;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox txtBlockTime;
+        private System.Windows.Forms.TextBox txtBlockCount;
+        private System.Windows.Forms.TextBox txtChatTime;
+        private System.Windows.Forms.TextBox txtChatCount;
+        private System.Windows.Forms.TextBox txtUpdater;
     }
 }

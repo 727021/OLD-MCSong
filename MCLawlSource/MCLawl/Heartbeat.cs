@@ -95,7 +95,7 @@ namespace MCSong
         {
             string postVars = staticVars;
 
-            string url = "http://www.minecraft.net/heartbeat.jsp";
+            string url = "https://minecraft.net/heartbeat.jsp";
             int totalTries = 0;
     retry:  try
             {

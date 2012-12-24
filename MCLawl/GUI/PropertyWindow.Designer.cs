@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PropertyWindow));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -81,10 +80,10 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.label55 = new System.Windows.Forms.Label();
             this.cmbMaintRank = new System.Windows.Forms.ComboBox();
+            this.chkKickLower = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cmbHomePhysics = new System.Windows.Forms.ComboBox();
             this.label54 = new System.Windows.Forms.Label();
-            this.chkKickLower = new System.Windows.Forms.CheckBox();
             this.cmbHomeType = new System.Windows.Forms.ComboBox();
             this.cmbHomeRank = new System.Windows.Forms.ComboBox();
             this.cmbHomeZ = new System.Windows.Forms.ComboBox();
@@ -164,10 +163,14 @@
             this.chkSmile = new System.Windows.Forms.CheckBox();
             this.chk17Dollar = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.txtChatTime = new System.Windows.Forms.TextBox();
-            this.txtChatCount = new System.Windows.Forms.TextBox();
+            this.lblSwearColor = new System.Windows.Forms.Label();
+            this.cmbSwearRank = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
+            this.cmbSwearColor = new System.Windows.Forms.ComboBox();
+            this.chkProfanity = new System.Windows.Forms.CheckBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txtChatCount = new System.Windows.Forms.TextBox();
             this.cmbChatSpamCon = new System.Windows.Forms.ComboBox();
             this.label44 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
@@ -236,6 +239,7 @@
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox14.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -836,6 +840,20 @@
             this.cmbMaintRank.TabIndex = 33;
             this.toolTip.SetToolTip(this.cmbMaintRank, "The lowest rank allowed to join when the server is in maintenance mode");
             // 
+            // chkKickLower
+            // 
+            this.chkKickLower.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkKickLower.AutoSize = true;
+            this.chkKickLower.Location = new System.Drawing.Point(93, 28);
+            this.chkKickLower.Name = "chkKickLower";
+            this.chkKickLower.Size = new System.Drawing.Size(97, 23);
+            this.chkKickLower.TabIndex = 0;
+            this.chkKickLower.Text = "Kick Lower Ranks";
+            this.chkKickLower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.chkKickLower, "Should players below the allowed rank be kicked when maintenance mode is turned o" +
+        "n?");
+            this.chkKickLower.UseVisualStyleBackColor = true;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.cmbHomePhysics);
@@ -881,20 +899,6 @@
             this.label54.Size = new System.Drawing.Size(72, 13);
             this.label54.TabIndex = 38;
             this.label54.Text = "Physics Level:";
-            // 
-            // chkKickLower
-            // 
-            this.chkKickLower.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkKickLower.AutoSize = true;
-            this.chkKickLower.Location = new System.Drawing.Point(93, 28);
-            this.chkKickLower.Name = "chkKickLower";
-            this.chkKickLower.Size = new System.Drawing.Size(97, 23);
-            this.chkKickLower.TabIndex = 0;
-            this.chkKickLower.Text = "Kick Lower Ranks";
-            this.chkKickLower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.chkKickLower, "Should players below the allowed rank be kicked when maintenance mode is turned o" +
-        "n?");
-            this.chkKickLower.UseVisualStyleBackColor = true;
             // 
             // cmbHomeType
             // 
@@ -1031,7 +1035,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(8, 214);
+            this.button3.Location = new System.Drawing.Point(8, 215);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(126, 23);
             this.button3.TabIndex = 30;
@@ -1640,6 +1644,7 @@
             this.btnText.Size = new System.Drawing.Size(91, 23);
             this.btnText.TabIndex = 5;
             this.btnText.Text = "Edit Text Files";
+            this.toolTip.SetToolTip(this.btnText, "Open the text editor");
             this.btnText.UseVisualStyleBackColor = true;
             this.btnText.Click += new System.EventHandler(this.btnText_Click);
             // 
@@ -1704,19 +1709,82 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Enabled = false;
+            this.groupBox7.Controls.Add(this.lblSwearColor);
+            this.groupBox7.Controls.Add(this.cmbSwearRank);
+            this.groupBox7.Controls.Add(this.label57);
+            this.groupBox7.Controls.Add(this.label45);
+            this.groupBox7.Controls.Add(this.cmbSwearColor);
+            this.groupBox7.Controls.Add(this.chkProfanity);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(323, 107);
             this.groupBox7.TabIndex = 15;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "(Planned) Profanity Filter";
+            this.groupBox7.Text = "Profanity Filter";
+            // 
+            // lblSwearColor
+            // 
+            this.lblSwearColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSwearColor.Location = new System.Drawing.Point(198, 57);
+            this.lblSwearColor.Name = "lblSwearColor";
+            this.lblSwearColor.Size = new System.Drawing.Size(26, 23);
+            this.lblSwearColor.TabIndex = 16;
+            // 
+            // cmbSwearRank
+            // 
+            this.cmbSwearRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSwearRank.FormattingEnabled = true;
+            this.cmbSwearRank.Location = new System.Drawing.Point(151, 22);
+            this.cmbSwearRank.Name = "cmbSwearRank";
+            this.cmbSwearRank.Size = new System.Drawing.Size(81, 21);
+            this.cmbSwearRank.TabIndex = 44;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(14, 62);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(100, 13);
+            this.label57.TabIndex = 14;
+            this.label57.Text = "Replacement Color:";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(112, 25);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(33, 13);
+            this.label45.TabIndex = 43;
+            this.label45.Text = "Rank:";
+            this.toolTip.SetToolTip(this.label45, "The maximun rank affected by the profanity filter");
+            // 
+            // cmbSwearColor
+            // 
+            this.cmbSwearColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSwearColor.FormattingEnabled = true;
+            this.cmbSwearColor.Location = new System.Drawing.Point(120, 59);
+            this.cmbSwearColor.Name = "cmbSwearColor";
+            this.cmbSwearColor.Size = new System.Drawing.Size(72, 21);
+            this.cmbSwearColor.TabIndex = 15;
+            this.toolTip.SetToolTip(this.cmbSwearColor, "The color replacement words will be");
+            this.cmbSwearColor.SelectedIndexChanged += new System.EventHandler(this.cmbSwearColor_SelectedIndexChanged);
+            // 
+            // chkProfanity
+            // 
+            this.chkProfanity.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkProfanity.AutoSize = true;
+            this.chkProfanity.Location = new System.Drawing.Point(13, 20);
+            this.chkProfanity.Name = "chkProfanity";
+            this.chkProfanity.Size = new System.Drawing.Size(87, 23);
+            this.chkProfanity.TabIndex = 0;
+            this.chkProfanity.Text = "Profanity Filter";
+            this.toolTip.SetToolTip(this.chkProfanity, "Filter swear words from the chat?");
+            this.chkProfanity.UseVisualStyleBackColor = true;
+            this.chkProfanity.CheckedChanged += new System.EventHandler(this.chkProfanity_CheckedChanged);
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.txtChatTime);
             this.groupBox6.Controls.Add(this.txtChatCount);
-            this.groupBox6.Controls.Add(this.label45);
             this.groupBox6.Controls.Add(this.cmbChatSpamCon);
             this.groupBox6.Controls.Add(this.label44);
             this.groupBox6.Controls.Add(this.label46);
@@ -1730,28 +1798,12 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Spam Filter";
             // 
-            // txtChatTime
-            // 
-            this.txtChatTime.Location = new System.Drawing.Point(264, 19);
-            this.txtChatTime.Name = "txtChatTime";
-            this.txtChatTime.Size = new System.Drawing.Size(40, 21);
-            this.txtChatTime.TabIndex = 43;
-            // 
             // txtChatCount
             // 
-            this.txtChatCount.Location = new System.Drawing.Point(169, 19);
+            this.txtChatCount.Location = new System.Drawing.Point(238, 17);
             this.txtChatCount.Name = "txtChatCount";
             this.txtChatCount.Size = new System.Drawing.Size(40, 21);
             this.txtChatCount.TabIndex = 42;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(209, 22);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(49, 13);
-            this.label45.TabIndex = 39;
-            this.label45.Text = "Seconds:";
             // 
             // cmbChatSpamCon
             // 
@@ -1768,7 +1820,6 @@
             this.cmbChatSpamCon.Name = "cmbChatSpamCon";
             this.cmbChatSpamCon.Size = new System.Drawing.Size(86, 21);
             this.cmbChatSpamCon.TabIndex = 34;
-            this.toolTip.SetToolTip(this.cmbChatSpamCon, "What should the Spam Filter do to players?");
             // 
             // label44
             // 
@@ -1778,15 +1829,18 @@
             this.label44.Size = new System.Drawing.Size(74, 13);
             this.label44.TabIndex = 41;
             this.label44.Text = "Consequence:";
+            this.toolTip.SetToolTip(this.label44, "What should the Spam Filter do to players?");
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(106, 22);
+            this.label46.Location = new System.Drawing.Point(175, 20);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(57, 13);
             this.label46.TabIndex = 38;
             this.label46.Text = "Messages:";
+            this.toolTip.SetToolTip(this.label46, "The consequence will happen to a pklayer that spams the same message this many ti" +
+        "mes");
             // 
             // chkChatSpam
             // 
@@ -1809,7 +1863,6 @@
             this.cmbChatSpamRank.Name = "cmbChatSpamRank";
             this.cmbChatSpamRank.Size = new System.Drawing.Size(81, 21);
             this.cmbChatSpamRank.TabIndex = 37;
-            this.toolTip.SetToolTip(this.cmbChatSpamRank, "The maximum rank affected by the Spam Filter");
             // 
             // label47
             // 
@@ -1819,6 +1872,7 @@
             this.label47.Size = new System.Drawing.Size(33, 13);
             this.label47.TabIndex = 36;
             this.label47.Text = "Rank:";
+            this.toolTip.SetToolTip(this.label47, "The maximum rank affected by the Spam Filter");
             // 
             // groupBox2
             // 
@@ -1908,6 +1962,7 @@
             this.cmbGlobalColor.Size = new System.Drawing.Size(72, 21);
             this.cmbGlobalColor.TabIndex = 12;
             this.toolTip.SetToolTip(this.cmbGlobalColor, "The color of chat sent to and from MCSong Global Chat");
+            this.cmbGlobalColor.SelectedIndexChanged += new System.EventHandler(this.cmbGlobalColor_SelectedIndexChanged);
             // 
             // label48
             // 
@@ -2332,7 +2387,6 @@
             this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PropertyWindow";
@@ -2365,6 +2419,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -2540,7 +2596,6 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.Label label45;
         private System.Windows.Forms.ComboBox cmbChatSpamCon;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label46;
@@ -2554,7 +2609,6 @@
         private System.Windows.Forms.CheckBox chkUPnP;
         private System.Windows.Forms.TextBox txtBlockTime;
         private System.Windows.Forms.TextBox txtBlockCount;
-        private System.Windows.Forms.TextBox txtChatTime;
         private System.Windows.Forms.TextBox txtChatCount;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnText;
@@ -2576,5 +2630,11 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.ComboBox cmbMaintRank;
         private System.Windows.Forms.CheckBox chkKickLower;
+        private System.Windows.Forms.ComboBox cmbSwearRank;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.CheckBox chkProfanity;
+        private System.Windows.Forms.Label lblSwearColor;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.ComboBox cmbSwearColor;
     }
 }

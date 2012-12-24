@@ -19,6 +19,8 @@ namespace MCSong.GUI
 
         private void UPropertyWindow_Load(object sender, EventArgs e)
         {
+            this.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("MCSong.Lawl.ico"));
+
             Window.upLoaded = true;
             load("properties/update.properties");
         }

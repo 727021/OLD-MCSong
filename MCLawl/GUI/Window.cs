@@ -33,7 +33,7 @@ namespace MCSong.GUI
         // for cross thread use
         delegate void StringCallback(string s);
         delegate void PlayerListCallback(List<Player> players);
-        delegate void ReportCallback(Report r);
+       // delegate void ReportCallback(Report r); [Not referenced anywhere...]
         delegate void VoidDelegate();
 
         public static event EventHandler Minimize;
@@ -60,7 +60,7 @@ namespace MCSong.GUI
         }
 
         private void Window_Minimize(object sender, EventArgs e)
-        {
+        {   
       /*     if (!Minimized)
             {
                 Minimized = true;

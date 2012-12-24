@@ -99,6 +99,8 @@ namespace MCSong
             all.Add(new CmdHfixgrass());
             all.Add(new CmdHallow());
             all.Add(new CmdHphysics());
+            all.Add(new CmdHmotd());
+            all.Add(new CmdHlockmap());
 
             all.Add(new CmdHost());
             all.Add(new CmdImport());
@@ -116,7 +118,9 @@ namespace MCSong
             all.Add(new CmdLimit());
             all.Add(new CmdLine());
             all.Add(new CmdLoad());
+            all.Add(new CmdLockmap());
             all.Add(new CmdLowlag());
+            all.Add(new CmdMaintenance());
             all.Add(new CmdMap());
             all.Add(new CmdMapInfo());
             all.Add(new CmdMe());
@@ -152,6 +156,7 @@ namespace MCSong
             all.Add(new CmdReplace());
             all.Add(new CmdReplaceAll());
             all.Add(new CmdReplaceNot());
+            all.Add(new CmdReport());
             all.Add(new CmdResetBot());
             all.Add(new CmdRestart());
             all.Add(new CmdRestartPhysics());
@@ -193,6 +198,7 @@ namespace MCSong
             all.Add(new CmdUndo());
             all.Add(new CmdUnload());
             all.Add(new CmdUnloaded());
+            all.Add(new CmdUnwarn());
             all.Add(new CmdUpdate());
             all.Add(new CmdView());
             all.Add(new CmdViewRanks());

@@ -12,7 +12,8 @@ namespace MCSong.GUI
 {
     public partial class PropertyWindow : Form
     {
-        public PropertyWindow() {
+        public PropertyWindow()
+        {
             InitializeComponent();
         }
 
@@ -29,7 +30,8 @@ namespace MCSong.GUI
         }
 
         private void PropertyWindow_Load(object sender, EventArgs e) {
-            Icon = GUI.Window.ActiveForm.Icon;
+
+            this.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("MCSong.Lawl.ico"));
 
             Object[] colors = new Object[16];
             colors[0] = ("black");      colors[1] = ("navy");
@@ -44,6 +46,7 @@ namespace MCSong.GUI
             cmbIRCColour.Items.AddRange(colors);
             cmbColor.Items.AddRange(colors);
             cmbGlobalColor.Items.AddRange(colors);
+            cmbSwearColor.Items.AddRange(colors);
 
             string opchatperm = "";
             string adminchatperm = "";
@@ -52,6 +55,7 @@ namespace MCSong.GUI
             string blockrank = "";
             string homerank = "";
             string maintrank = "";
+            string swearrank = "";
             foreach (Group grp in Group.GroupList)
             {
                 cmbDefaultRank.Items.Add(grp.name);
@@ -62,6 +66,7 @@ namespace MCSong.GUI
                 cmbChatSpamRank.Items.Add(grp.name);
                 cmbHomeRank.Items.Add(grp.name);
                 cmbMaintRank.Items.Add(grp.name);
+                cmbSwearRank.Items.Add(grp.name);
                 if (grp.Permission == Server.opchatperm)
                 {
                     opchatperm = grp.name;
@@ -90,6 +95,10 @@ namespace MCSong.GUI
                 {
                     maintrank = grp.name;
                 }
+                if (grp.Permission == Server.swearRank)
+                {
+                    swearrank = grp.name;
+                }
             }
             cmbDefaultRank.SelectedIndex = 1;
             cmbOpChat.SelectedIndex = (opchatperm != "") ? cmbOpChat.Items.IndexOf(opchatperm) : 1;
@@ -99,6 +108,7 @@ namespace MCSong.GUI
             cmbBlockSpamRank.SelectedIndex = (blockrank != "") ? cmbBlockSpamRank.Items.IndexOf(blockrank) : 1;
             cmbHomeRank.SelectedIndex = (homerank != "") ? cmbHomeRank.Items.IndexOf(homerank) : 1;
             cmbMaintRank.SelectedIndex = (maintrank != "") ? cmbMaintRank.Items.IndexOf(maintrank) : 1;
+            cmbSwearRank.SelectedIndex = (swearrank != "") ? cmbSwearRank.Items.IndexOf(swearrank) : 1;
 
             //Load server stuff
             LoadProp("properties/server.properties");
@@ -314,22 +324,13 @@ namespace MCSong.GUI
                                 if (!chkChatSpam.Checked)
                                 {
                                     txtChatCount.Enabled = false;
-                                    txtChatTime.Enabled = false;
                                     cmbChatSpamCon.Enabled = false;
                                     cmbChatSpamRank.Enabled = false;
                                 }
                                 break;
                             case "chat-spam-count":
-                               // numChatSpamCount.Value = Convert.ToInt32(value);
-                               // numChatSpamCount.Update();
                                 try { txtChatCount.Text = Convert.ToInt32(value).ToString(); }
                                 catch { txtChatCount.Text = "13"; }
-                                break;
-                            case "chat-spam-seconds":
-                               // numChatSpamSeconds.Value = Convert.ToInt32(value);
-                               // numChatSpamSeconds.Update();
-                                try { txtChatTime.Text = Convert.ToInt32(value).ToString(); }
-                                catch { txtChatTime.Text = "5"; }
                                 break;
                             case "chat-spam-consequence":
                                 cmbChatSpamCon.SelectedIndex = cmbChatSpamCon.Items.IndexOf(value.ToLower());
@@ -346,19 +347,24 @@ namespace MCSong.GUI
                                 }
                                 break;
                             case "block-spam-count":
-                               // numBlockSpamCount.Value = Convert.ToInt32(value);
-                               // numBlockSpamCount.Update();
                                 try { txtBlockCount.Text = Convert.ToInt32(value).ToString(); }
                                 catch { txtBlockCount.Text = "13"; }
                                 break;
                             case "block-spam-seconds":
-                               // numBlockSpamTime.Value = Convert.ToInt32(value);
-                               // numBlockSpamTime.Update();
                                 try { txtBlockTime.Text = Convert.ToInt32(value).ToString(); }
                                 catch { txtBlockTime.Text = "5"; }
                                 break;
                             case "block-spam-consequence":
                                 cmbBlockSpamConsequence.SelectedIndex = cmbBlockSpamConsequence.Items.IndexOf(value.ToLower());
+                                break;
+
+                            // Profanity Filter
+                            case "filter-profanity":
+                                chkProfanity.Checked = (value.ToLower() == "true") ? true : false;
+                                if (!chkProfanity.Checked)
+                                {
+                                    cmbSwearRank.Enabled = false;
+                                }
                                 break;
 
                             case "kick-lower":
@@ -460,19 +466,38 @@ namespace MCSong.GUI
                                 chkDeath.Checked = (value.ToLower() == "true") ? true : false;
                                 break;
 
+                            // Colors
                             case "defaultcolor":
                                 color = c.Parse(value);
-                                if (color == "") {
-                                    color = c.Name(value); if (color != "") color = value; else { Server.s.Log("Could not find " + value); return; }
+                                if (color == "")
+                                {
+                                    color = c.Name(value);
+                                    if (color != "") color = value;
+                                    else { Server.s.Log("Could not find " + value); return; }
                                 }
-                                cmbDefaultColour.SelectedIndex = cmbDefaultColour.Items.IndexOf(c.Name(value)); break;
-
+                                cmbDefaultColour.SelectedIndex = cmbDefaultColour.Items.IndexOf(c.Name(value));
+                                break;
                             case "irc-color":
                                 color = c.Parse(value);
-                                if (color == "") {
-                                    color = c.Name(value); if (color != "") color = value; else { Server.s.Log("Could not find " + value); return; }
+                                if (color == "")
+                                {
+                                    color = c.Name(value);
+                                    if (color != "") color = value;
+                                    else { Server.s.Log("Could not find " + value); return; }
                                 }
-                                cmbIRCColour.SelectedIndex = cmbIRCColour.Items.IndexOf(c.Name(value)); break;
+                                cmbIRCColour.SelectedIndex = cmbIRCColour.Items.IndexOf(c.Name(value));
+                                break;
+                            case "profanity-color":
+                                color = c.Parse(value);
+                                if (color == "")
+                                {
+                                    color = c.Name(value);
+                                    if (color != "") color = value;
+                                    else { Server.s.Log("Could not find " + value); return; }
+                                }
+                                cmbSwearColor.SelectedIndex = cmbSwearColor.Items.IndexOf(c.Name(value));
+                                break;
+
                             case "default-rank":
                                 try {
                                     if (cmbDefaultRank.Items.IndexOf(value.ToLower()) != -1)
@@ -652,7 +677,7 @@ namespace MCSong.GUI
                     w.WriteLine("irc-channel = " + txtChannel.Text);
                     w.WriteLine("irc-opchannel = " + txtOpChannel.Text);
                     w.WriteLine("irc-port = " + Server.ircPort.ToString());
-                    w.WriteLine("irc-identify = " + chkIrcIdentify.Checked.ToString().ToLower()); // <--- FIX THIS
+                    w.WriteLine("irc-identify = " + chkIrcIdentify.Checked.ToString().ToLower()); // [FIXME]
                     w.WriteLine("irc-password = " + txtIrcPassword.Text);
                     w.WriteLine();
                     w.WriteLine("# other options");
@@ -660,19 +685,16 @@ namespace MCSong.GUI
                     w.WriteLine("max-depth = " + txtDepth.Text);
                     w.WriteLine("tunnel-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbTunnelRank.Items[cmbTunnelRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("chat-spam = " + chkChatSpam.Checked.ToString().ToLower());
-                   /* w.WriteLine("chat-spam-count = " + numChatSpamCount.Value.ToString());
-                    w.WriteLine("chat-spam-seconds = " + numChatSpamCount.Value.ToString()); */
                     w.WriteLine("chat-spam-count = " + txtChatCount.Text);
-                    w.WriteLine("chat-spam-seconds = " + txtChatTime.Text);
                     w.WriteLine("chat-spam-consequence = " + cmbChatSpamCon.Items[cmbChatSpamCon.SelectedIndex].ToString().ToLower());
                     w.WriteLine("chat-spam-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbChatSpamRank.Items[cmbChatSpamRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("block-spam = " + chkBlockSpam.Checked.ToString().ToLower());
-                   /* w.WriteLine("block-spam-count = " + numBlockSpamCount.Value.ToString());
-                    w.WriteLine("block-spam-seconds = " + numBlockSpamTime.Value.ToString()); */
                     w.WriteLine("block-spam-count = " + txtBlockCount.Text);
                     w.WriteLine("block-spam-seconds = " + txtBlockTime.Text);
                     w.WriteLine("block-spam-consequence = " + cmbBlockSpamConsequence.Items[cmbBlockSpamConsequence.SelectedIndex].ToString().ToLower());
                     w.WriteLine("block-spam-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbBlockSpamRank.Items[cmbBlockSpamRank.SelectedIndex].ToString()).Permission).ToString());
+                    w.WriteLine("filter-profanity = " + chkProfanity.Checked.ToString().ToLower());
+                    w.WriteLine("profanity-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbSwearRank.Items[cmbSwearRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("maintenance-rank = " + ((sbyte)Group.GroupList.Find(grp => grp.name == cmbMaintRank.Items[cmbMaintRank.SelectedIndex].ToString()).Permission).ToString());
                     w.WriteLine("kick-lower = " + chkKickLower.Checked.ToString().ToLower());
                     w.WriteLine("rplimit = " + txtRP.Text);
@@ -720,6 +742,7 @@ namespace MCSong.GUI
                     w.WriteLine("# Colors");
                     w.WriteLine("defaultColor = " + cmbDefaultColour.Items[cmbDefaultColour.SelectedIndex].ToString());
                     w.WriteLine("irc-color = " + cmbIRCColour.Items[cmbIRCColour.SelectedIndex].ToString());
+                    w.WriteLine("profanity-color = " + cmbSwearColor.Items[cmbSwearColor.SelectedIndex].ToString());
                     w.WriteLine();
                     w.WriteLine("# Running on mono?");
                     w.WriteLine("mono = " + chkMono.Checked.ToString().ToLower());
@@ -1256,14 +1279,12 @@ namespace MCSong.GUI
                 cmbChatSpamCon.Enabled = true;
                 cmbChatSpamRank.Enabled = true;
                 txtChatCount.Enabled = true;
-                txtChatTime.Enabled = true;
             }
             else
             {
                 cmbChatSpamCon.Enabled = false;
                 cmbChatSpamRank.Enabled = false;
                 txtChatCount.Enabled = false;
-                txtChatTime.Enabled = false;
             }
         }
 
@@ -1323,6 +1344,22 @@ namespace MCSong.GUI
         {
             txtShutdown.Enabled = chkShutdown.Checked;
             txtShutdown.Update();
+        }
+
+        private void chkProfanity_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbSwearRank.Enabled = chkProfanity.Checked;
+            cmbSwearRank.Update();
+        }
+
+        private void cmbGlobalColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblGlobalColor.BackColor = Color.FromName(cmbGlobalColor.Items[cmbGlobalColor.SelectedIndex].ToString());
+        }
+
+        private void cmbSwearColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblSwearColor.BackColor = Color.FromName(cmbSwearColor.Items[cmbSwearColor.SelectedIndex].ToString());
         }
     }
 }

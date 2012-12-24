@@ -50,6 +50,8 @@ namespace MCSong.GUI
 
         private void TextWindow_Load(object sender, EventArgs e)
         {
+            this.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("MCSong.Lawl.ico"));
+
             Window.txtLoaded = true;
             reload();
         }

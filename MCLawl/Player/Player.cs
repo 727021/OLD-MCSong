@@ -56,6 +56,7 @@ namespace MCSong
 
         public string name;
         public string realName;
+       // public string displayedname;
         public byte id;
         public int userID = -1;
         public string ip;
@@ -69,6 +70,9 @@ namespace MCSong
         public string prefix = "";
         public string title = "";
         public string titlecolor;
+
+       // public string loginmessage;
+       // public string logoutmessage;
 
         public bool deleteMode = false;
         public bool ignorePermission = false;
@@ -116,6 +120,10 @@ namespace MCSong
 
         public Thread commThread;
         public bool commUse = false;
+
+        // Chat Spam Filter
+        public int sameMessages = 0;
+        public string lastMessage = "";
 
         public bool aiming;
         public bool isFlying = false;
@@ -189,10 +197,6 @@ namespace MCSong
         public static int spamBlockCount = Server.blockSpamCount;
         public static int spamBlockTimer = Server.blockSpamSeconds;
         Queue<DateTime> spamBlockLog = new Queue<DateTime>(spamBlockCount);
-
-        public static int spamChatCount = Server.chatSpamCount;
-        public static int spamChatTimer = Server.chatSpamSeconds;
-        Queue<DateTime> spamChatLog = new Queue<DateTime>(spamChatCount);
 
         public bool loggedIn = false;
         public Player(Socket s)
@@ -364,13 +368,16 @@ namespace MCSong
             }
             catch (SocketException e)
             {
-                Server.ErrorLog(e);
                 p.Disconnect();
             }
             catch (Exception e)
             {
                 Server.ErrorLog(e);
                 p.Kick("Error!");
+                Server.s.Log("Attempting to restart listening socket...");
+                Server.listen = null;
+                if (Server.Setup()) { Server.s.Log("Listening socket on port " + Server.port.ToString() + " restarted."); }
+                else { Server.s.Log("Failed to restart listening socket."); }
             }
         }
         byte[] HandleMessage(byte[] buffer)
@@ -473,11 +480,7 @@ namespace MCSong
                     }
                 } catch { }
                 // OMNI BAN
-                Server.obUpdate();
-                if (Server.OmniBan.Contains(name.ToLower()) || Server.OmniBan.Contains(ip))
-                {
-                    Kick("You have been omnibanned. Appeal at forums.mcsong.comule.com");
-                }
+                Server.obUpdate(this);
                 // Whitelist check.
                 if (Server.useWhitelist)
                 {
@@ -764,8 +767,8 @@ namespace MCSong
                 //byte[] message = (byte[])m;
                 if (!loggedIn)
                     return;
-               // if (CheckBlockSpam())
-                 //   return;
+                if (CheckBlockSpam())
+                    return;
 
                 section++;
                 ushort x = NTHO(message, 0);
@@ -1372,7 +1375,7 @@ namespace MCSong
             try
             {
                 if (!loggedIn) return;
-               // if (CheckChatSpam()) return;
+                // if (CheckChatSpam()) return;
 
                 //byte[] message = (byte[])m;
                 string text = enc.GetString(message, 1, 64).Trim();
@@ -1390,7 +1393,7 @@ namespace MCSong
                     storedMessage += text.Replace(">", "|>|");
                     SendMessage("Message appended!");
                     return;
-                } 
+                }
                 else if (text.EndsWith("<"))
                 {
                     storedMessage += text.Replace("<", "|<|");
@@ -1478,7 +1481,7 @@ namespace MCSong
                     Server.s.Log("(OPs): " + name + ": " + newtext);
                     Server.s.LogOp(name + ": " + newtext);
                     IRCBot.Say(name + ": " + newtext, true);
-                    return;
+                    goto chat;
                 }
                 if (text[0] == ';' || adminchat)
                 {
@@ -1491,7 +1494,7 @@ namespace MCSong
                     Server.s.Log("(Admins): " + name + ": " + newtext);
                     Server.s.LogAdmin(name + ": " + newtext);
                     IRCBot.Say(name + ": " + newtext, true);
-                    return;
+                    goto chat;
                 }
 
                 if (this.teamchat)
@@ -1499,13 +1502,13 @@ namespace MCSong
                     if (team == null)
                     {
                         Player.SendMessage(this, "You are not on a team.");
-                        return;
+                        goto chat;
                     }
                     foreach (Player p in team.players)
                     {
                         Player.SendMessage(p, "(" + team.teamstring + ") " + this.color + this.name + ":&f " + text);
                     }
-                    return;
+                    goto chat;
                 }
                 if (this.joker)
                 {
@@ -1536,7 +1539,7 @@ namespace MCSong
                 {
                     Server.s.Log("<" + name + ">[level] " + text);
                     GlobalChatLevel(this, text, true);
-                    return;
+                    goto chat;
                 }
 
                 if (text[0] == '%')
@@ -1553,7 +1556,7 @@ namespace MCSong
                     }
                     Server.s.Log("<" + name + "> " + newtext);
                     IRCBot.Say("<" + name + "> " + newtext);
-                    return;
+                    goto chat;
                 }
                 Server.s.Log("<" + name + "> " + text);
                 Server.s.LogPublic(name + ": " + text);
@@ -1568,6 +1571,67 @@ namespace MCSong
                 }
 
                 IRCBot.Say(name + ": " + text);
+
+                // Chat Spam Filter
+            chat:
+                if (Server.chatSpam)
+                {
+                    if (group.Permission <= Server.chatSpamRank)
+                    {
+                        if (text.ToLower() == lastMessage.ToLower()) sameMessages += 1;
+                        if (sameMessages >= Server.chatSpamCount)
+                        {
+                            switch (Server.chatSpamCon.ToLower())
+                            {
+                                case "mute":
+                                    if (!muted)
+                                        Command.all.Find("mute").Use(null, " " + name);
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was muted for chat spam.");
+                                    SendMessage(color + name + Server.DefaultColor + " was muted for chat spam.");
+                                    Server.s.Log(name + " was muted for chat spam.");
+                                    break;
+                                case "freeze":
+                                    if (!frozen)
+                                        Command.all.Find("freeze").Use(null, " " + name);
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was frozen for chat spam.");
+                                    SendMessage(color + name + Server.DefaultColor + " was frozen for chat spam.");
+                                    Server.s.Log(name + " was frozen for chat spam.");
+                                    break;
+                                case "jail":
+                                    if (!jailed)
+                                        Command.all.Find("jail").Use(null, " " + name);
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was jailed for chat spam.");
+                                    SendMessage(color + name + Server.DefaultColor + " was jailed for chat spam.");
+                                    Server.s.Log(name + " was jailed for chat spam.");
+                                    break;
+                                case "warn":
+                                    Command.all.Find("warn").Use(null, " " + name);
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was warned for chat spam.");
+                                    SendMessage(color + name + Server.DefaultColor + " was warned for chat spam.");
+                                    Server.s.Log(name + " was warned for chat spam.");
+                                    break;
+                                case "kick":
+                                    Kick(name + " was kicked for chat spam.");
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was kicked for chat spam.");
+                                    Server.s.Log(name + " was kicked for chat spam.");
+                                    break;
+                                case "ban":
+                                    Command.all.Find("ban").Use(null, " " + name);
+                                    Kick(name + " was banned for chat spam");
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was banned for chat spam.");
+                                    Server.s.Log(name + " was banned for chat spam.");
+                                    break;
+                                default:
+                                    if (!muted)
+                                        Command.all.Find("mute").Use(null, " " + name);
+                                    GlobalMessageOps(color + name + Server.DefaultColor + " was muted for chat spam.");
+                                    SendMessage(color + name + Server.DefaultColor + " was muted for chat spam.");
+                                    Server.s.Log(name + " was muted for chat spam.");
+                                    break;
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception e) { Server.ErrorLog(e); Player.GlobalMessage("An error occurred: " + e.Message); }
         }
@@ -2507,8 +2571,7 @@ namespace MCSong
         }
         #endregion
 
-        // ============================= FIX SPAM FILTERS (RE-WRITE) =================================
-        bool CheckBlockSpam() // Block Spam Filter
+        bool CheckBlockSpam() // Block Spam Filters [UNTESTED]
         {
             if (spamBlockLog.Count >= spamBlockCount)
             {
@@ -2523,36 +2586,36 @@ namespace MCSong
                                 Command.all.Find("freeze").Use(null, " " + name);
                             GlobalMessageOps(color + name + Server.DefaultColor + " was frozen for suspected grief.");
                             SendMessage(color + name + Server.DefaultColor + " was frozen for suspected grief.");
-                            Server.s.Log(name + " was frozen for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was frozen for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                         case "jail":
                             if (!jailed)
                                 Command.all.Find("jail").Use(null, " " + name);
                             GlobalMessageOps(color + name + Server.DefaultColor + " was jailed for suspected grief.");
                             SendMessage(color + name + Server.DefaultColor + " was jailed for suspected grief.");
-                            Server.s.Log(name + " was jailed for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was jailed for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                         case "warn":
                             Command.all.Find("warn").Use(null, " " + name);
                             GlobalMessageOps(color + name + Server.DefaultColor + " was warned for suspected grief.");
                             SendMessage(color + name + Server.DefaultColor + " was warned for suspected grief.");
-                            Server.s.Log(name + " was warned for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was warned for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                         case "kick":
-                            Kick(name + " was kicked for suspected grief");
+                            Kick(name + " was kicked for suspected grief.");
                             GlobalMessageOps(color + name + Server.DefaultColor + " was kicked for suspected grief.");
-                            Server.s.Log(name + " was kicked for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was kicked for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                         case "ban":
                             Command.all.Find("ban").Use(null, " " + name);
-                            Kick(name + " was banned for suspected grief");
+                            Kick(name + " was banned for suspected grief.");
                             GlobalMessageOps(color + name + Server.DefaultColor + " was banned for suspected grief.");
-                            Server.s.Log(name + " was banned for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was banned for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                         default:
-                            Kick(name + " was kicked for suspected grief");
+                            Kick(name + " was kicked for suspected grief.");
                             GlobalMessageOps(color + name + Server.DefaultColor + " was kicked for suspected grief.");
-                            Server.s.Log(name + " was kicked for suspected grief (" + spamBlockCount + " messages in " + spamTimer + " seconds)");
+                            Server.s.Log(name + " was kicked for suspected grief (" + spamBlockCount + " blocks in " + spamTimer + " seconds)");
                             break;
                     }
                     return true;
@@ -2562,7 +2625,7 @@ namespace MCSong
             return false;
         }
 
-        bool CheckChatSpam() // Chat Spam Filter
+       /* bool CheckChatSpam() // Chat Spam Filter [REWRITTEN IN Player.HandleChat()]
         {
             if (spamChatLog.Count >= spamChatCount)
             {
@@ -2621,9 +2684,9 @@ namespace MCSong
                     return true;
                 }
             }
-            spamBlockLog.Enqueue(DateTime.Now);
+            spamChatLog.Enqueue(DateTime.Now);
             return false;
-        }
+        } */
 
 #region getters
         public ushort[] footLocation

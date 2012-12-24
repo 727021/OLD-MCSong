@@ -24,6 +24,8 @@ namespace MCSong.GUI
         }
         private void UpdateWindow_Load(object sender, EventArgs e)
         {
+            this.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("MCSong.Lawl.ico"));
+
             txtStatus.Text = "Retrieving Updates";
             prgStatus.Value = 0;
             prgStatus.Update();

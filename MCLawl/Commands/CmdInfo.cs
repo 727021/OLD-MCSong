@@ -52,7 +52,7 @@ namespace MCSong
                 Player.SendMessage(p, upTime);
 
                 if (Server.updateTimer.Interval > 1000) Player.SendMessage(p, "Server is currently in " + c.purple + "Low Lag" + Server.DefaultColor + " mode.");
-               // if (Server.maintenanceMode) Player.SendMessage(p, "Server is currently in " + c.red + "Maintenance" + Server.DefaultColor + " mode.");
+                if (Server.maintenanceMode) Player.SendMessage(p, "Server is currently in " + c.red + "Maintenance" + Server.DefaultColor + " mode.");
             }
         }
         public override void Help(Player p)

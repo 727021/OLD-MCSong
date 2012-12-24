@@ -210,9 +210,6 @@ namespace MCSong
                             case "chat-spam-count":
                                 Server.chatSpamCount = Convert.ToInt32(value);
                                 break;
-                            case "chat-spam-seconds":
-                                Server.chatSpamSeconds = Convert.ToInt32(value);
-                                break;
                             case "chat-spam-consequence":
                                 Server.chatSpamCon = value.ToLower();
                                 break;
@@ -250,6 +247,23 @@ namespace MCSong
                                         throw new FormatException();
                                     }
                                     Server.blockSpamRank = (LevelPermission)parsed;
+                                }
+                                catch { Server.s.Log("Invalid " + key + ". Using default."); break; }
+                                break;
+
+                            // Profanity Filter
+                            case "filter-profanity":
+                                Server.swearFilter = (value.ToLower() == "true") ? true : false;
+                                break;
+                            case "profanity-rank":
+                                try
+                                {
+                                    sbyte parsed = sbyte.Parse(value);
+                                    if (parsed < -50 || parsed > 120)
+                                    {
+                                        throw new FormatException();
+                                    }
+                                    Server.swearRank = (LevelPermission)parsed;
                                 }
                                 catch { Server.s.Log("Invalid " + key + ". Using default."); break; }
                                 break;
@@ -376,6 +390,14 @@ namespace MCSong
                                     color = c.Name(value); if (color != "") color = value; else { Server.s.Log("Could not find " + value); return; }
                                 }
                                 Server.IRCColour = color;
+                                break;
+                            case "profanity-color":
+                                color = c.Parse(value);
+                                if (color == "")
+                                {
+                                    color = c.Name(value); if (color != "") color = value; else { Server.s.Log("Could not find " + value); return; }
+                                }
+                                Server.swearColor = color;
                                 break;
                             case "old-help":
                                 try { Server.oldHelp = bool.Parse(value); }
@@ -607,7 +629,6 @@ namespace MCSong
                     w.WriteLine("tunnel-rank = " + ((sbyte)Server.tunnelRank).ToString());
                     w.WriteLine("chat-spam = " + Server.chatSpam.ToString().ToLower());
                     w.WriteLine("chat-spam-count = " + Server.chatSpamCount.ToString());
-                    w.WriteLine("chat-spam-seconds = " + Server.chatSpamSeconds.ToString());
                     w.WriteLine("chat-spam-consequence = " + Server.chatSpamCon.ToLower());
                     w.WriteLine("chat-spam-rank = " + ((sbyte)Server.chatSpamRank).ToString());
                     w.WriteLine("block-spam = " + Server.blockSpam.ToString().ToLower());
@@ -615,6 +636,8 @@ namespace MCSong
                     w.WriteLine("block-spam-seconds = " + Server.blockSpamSeconds.ToString());
                     w.WriteLine("block-spam-consequence = " + Server.blockSpamCon.ToLower());
                     w.WriteLine("block-spam-rank = " + ((sbyte)Server.blockSpamRank).ToString());
+                    w.WriteLine("filter-profanity = " + Server.swearFilter.ToString().ToLower());
+                    w.WriteLine("profanity-rank = " + ((sbyte)Server.swearRank).ToString());
                     w.WriteLine("maintenance-rank = " + ((sbyte)Server.maintRank).ToString());
                     w.WriteLine("kick-lower = " + Server.kickLower.ToString().ToLower());
                     w.WriteLine("rplimit = " + Server.rpLimit.ToString().ToLower());
@@ -663,6 +686,7 @@ namespace MCSong
                     w.WriteLine("# Colors");
                     w.WriteLine("defaultColor = " + Server.DefaultColor);
                     w.WriteLine("irc-color = " + Server.IRCColour);
+                    w.WriteLine("profanity-color = " + Server.swearColor);
                     w.WriteLine();
                     w.WriteLine("# Running on mono?");
                     w.WriteLine("mono = " + Server.mono);

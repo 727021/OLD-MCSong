@@ -11,7 +11,8 @@
     <RootNamespace>MCSong</RootNamespace>
     <AssemblyName>MCSong_</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -34,7 +35,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\FROSTEDBUTTS\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -94,12 +95,17 @@
     <Compile Include="Commands\CmdHallow.cs" />
     <Compile Include="Commands\CmdHfixgrass.cs" />
     <Compile Include="Commands\CmdHkick.cs" />
+    <Compile Include="Commands\CmdHlockmap.cs" />
+    <Compile Include="Commands\CmdHmotd.cs" />
     <Compile Include="Commands\CmdHome.cs" />
     <Compile Include="Commands\CmdHphysics.cs" />
     <Compile Include="Commands\CmdHrestore.cs" />
     <Compile Include="Commands\CmdHsave.cs" />
     <Compile Include="Commands\CmdHwipe.cs" />
+    <Compile Include="Commands\CmdLockmap.cs" />
+    <Compile Include="Commands\CmdMaintenance.cs" />
     <Compile Include="Commands\CmdPossess.cs" />
+    <Compile Include="Commands\CmdReport.cs" />
     <Compile Include="Commands\CmdTColor.cs" />
     <Compile Include="Commands\CmdCmdUnload.cs" />
     <Compile Include="Commands\CmdCmdLoad.cs" />
@@ -128,6 +134,7 @@
     <Compile Include="Commands\CmdAward.cs" />
     <Compile Include="Commands\CmdAwards.cs" />
     <Compile Include="Commands\CmdAwardMod.cs" />
+    <Compile Include="Commands\CmdUnwarn.cs" />
     <Compile Include="Commands\CmdWarn.cs" />
     <Compile Include="Commands\CmdXzone.cs" />
     <Compile Include="CTFGame.cs" />
@@ -295,14 +302,14 @@
     <Compile Include="IRCBot.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\ConvertDAT.cs" />
-    <Compile Include="MySQL.cs" />
+    <Compile Include="Database\MySQL.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Player\Team.cs" />
     <Compile Include="Player\Group.cs" />
     <Compile Include="GUI\Program.cs" />
     <Compile Include="Heartbeat.cs" />
     <Compile Include="Levels\MapGenerator.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Misc.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\PlayerBot.cs" />
     <Compile Include="Player\PlayerList.cs" />
@@ -372,7 +379,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ideas.txt" />
+    <Folder Include="Lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -90,6 +90,8 @@ namespace MCSong
         public bool worldChat = true;
         public bool fishstill = false;
 
+        public bool locked = false;
+
         public int speedPhysics = 250;
         public int overload = 1500;
 

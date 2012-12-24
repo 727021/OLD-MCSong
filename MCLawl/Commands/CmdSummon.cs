@@ -43,7 +43,18 @@ namespace MCSong
 
             Player who = Player.Find(message);
             if (who == null || who.hidden) { Player.SendMessage(p, "There is no player \"" + message + "\"!"); return; }
-            if (p.level != who.level) { Player.SendMessage(p, who.name + " is in a different level."); return; }
+            if (p.level != who.level)
+            {
+                if (p.level.locked) { Player.SendMessage(p, "You can't summon players to a locked map!"); return; }
+                Player.SendMessage(p, who.name + " is in a different level.");
+                Player.SendMessage(p, "Force-fetching has started...");
+                who.ignorePermission = true;
+                Command.all.Find("goto").Use(who, p.level.name);
+                who.ignorePermission = false;
+                unchecked { who.SendPos((byte)-1, p.pos[0], p.pos[1], p.pos[2], p.rot[0], 0); }
+                Player.SendMessage(who, "You were summoned by " + p.color + p.name + Server.DefaultColor + ".");
+                return;
+            }
             unchecked { who.SendPos((byte)-1, p.pos[0], p.pos[1], p.pos[2], p.rot[0], 0); }
             who.SendMessage("You were summoned by " + p.color + p.name + Server.DefaultColor + ".");
         }

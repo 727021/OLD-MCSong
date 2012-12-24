@@ -204,19 +204,21 @@ namespace MCSong.GUI
             // checkBox2
             // 
             this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox2.Location = new System.Drawing.Point(519, 95);
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(518, 95);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(110, 23);
             this.checkBox2.TabIndex = 41;
             this.checkBox2.Text = "Play Chat Sounds";
             this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
             this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.Location = new System.Drawing.Point(519, 66);
+            this.checkBox1.Location = new System.Drawing.Point(518, 66);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(110, 23);
             this.checkBox1.TabIndex = 40;
@@ -228,7 +230,7 @@ namespace MCSong.GUI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(492, 139);
+            this.label6.Location = new System.Drawing.Point(492, 127);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 39;
@@ -567,7 +569,7 @@ namespace MCSong.GUI
             // txtHost
             // 
             this.txtHost.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHost.Location = new System.Drawing.Point(557, 136);
+            this.txtHost.Location = new System.Drawing.Point(557, 124);
             this.txtHost.Name = "txtHost";
             this.txtHost.Size = new System.Drawing.Size(91, 21);
             this.txtHost.TabIndex = 28;
@@ -656,9 +658,11 @@ namespace MCSong.GUI
             // 
             // txtLogAdmin
             // 
+            this.txtLogAdmin.BackColor = System.Drawing.SystemColors.Window;
             this.txtLogAdmin.Location = new System.Drawing.Point(9, 20);
             this.txtLogAdmin.Multiline = true;
             this.txtLogAdmin.Name = "txtLogAdmin";
+            this.txtLogAdmin.ReadOnly = true;
             this.txtLogAdmin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLogAdmin.Size = new System.Drawing.Size(643, 101);
             this.txtLogAdmin.TabIndex = 2;
@@ -695,9 +699,11 @@ namespace MCSong.GUI
             // 
             // txtLogOp
             // 
+            this.txtLogOp.BackColor = System.Drawing.SystemColors.Window;
             this.txtLogOp.Location = new System.Drawing.Point(10, 20);
             this.txtLogOp.Multiline = true;
             this.txtLogOp.Name = "txtLogOp";
+            this.txtLogOp.ReadOnly = true;
             this.txtLogOp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLogOp.Size = new System.Drawing.Size(643, 101);
             this.txtLogOp.TabIndex = 3;
@@ -734,9 +740,11 @@ namespace MCSong.GUI
             // 
             // txtLogPublic
             // 
+            this.txtLogPublic.BackColor = System.Drawing.SystemColors.Window;
             this.txtLogPublic.Location = new System.Drawing.Point(9, 20);
             this.txtLogPublic.Multiline = true;
             this.txtLogPublic.Name = "txtLogPublic";
+            this.txtLogPublic.ReadOnly = true;
             this.txtLogPublic.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLogPublic.Size = new System.Drawing.Size(643, 101);
             this.txtLogPublic.TabIndex = 3;
@@ -923,7 +931,7 @@ namespace MCSong.GUI
             this.panel1.Controls.Add(this.lblMaintenance);
             this.panel1.Location = new System.Drawing.Point(479, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 30);
+            this.panel1.Size = new System.Drawing.Size(200, 25);
             this.panel1.TabIndex = 2;
             // 
             // lblMaintenance

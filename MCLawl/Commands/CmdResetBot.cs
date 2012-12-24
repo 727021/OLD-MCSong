@@ -28,11 +28,21 @@ namespace MCSong
 
         public override void Use(Player p, string message)
         {
-            IRCBot.Reset();
+            if (message == "")
+            {
+                IRCBot.Reset();
+                // GlobalBot.Reset();
+            }
+            else if (message.ToLower() == "irc")
+                IRCBot.Reset();
+           // else if (message.ToLower() == "global")
+               // GlobalBot.Reset();
+            else { Help(p); return; }
         }
         public override void Help(Player p)
         {
-            Player.SendMessage(p, "/resetbot - reloads the IRCBot. FOR EMERGENCIES ONLY!");
+            Player.SendMessage(p, "/resetbot - Reset all IRC bots");
+           // Player.SendMessage(p, "/resetbot [irc/global] - Reset the IRC or Global Chat bot");
         }
     }
 }

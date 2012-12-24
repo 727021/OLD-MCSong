@@ -40,6 +40,7 @@ namespace MCSong
                     if (p.level == foundLevel) { Player.SendMessage(p, "You are already in \"" + foundLevel.name + "\"."); return; }
                     if (!p.ignorePermission)
                         if (p.group.Permission < foundLevel.permissionvisit) { Player.SendMessage(p, "You're not allowed to go to " + foundLevel.name + "."); return; }
+                    if (foundLevel.locked) { Player.SendMessage(p, "\"" + foundLevel.name + "\" is locked!"); return; }
 
                     p.Loading = true;
                     foreach (Player pl in Player.players) if (p.level == pl.level && p != pl) p.SendDie(pl.id);

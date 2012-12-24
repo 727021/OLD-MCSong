@@ -35,14 +35,14 @@ namespace MCSong
                     pl.warned = true;
                     if (msg.Trim() == "" || msg == null)
                     {
-                        Player.SendMessage(pl, "Warned by " + p.color + p.name + ": " + c.red + "One more warning is an automatic kick!");
-                        Player.GlobalMessageOps("To Ops" + c.white + " - " + pl.color + pl.name + c.white + " was warned by " + p.color + p.name);
-                        Server.s.Log(pl.name + " was warned by " + p.name);
+                        Player.SendMessage(pl, "Warned by &aConsole" + Server.DefaultColor + ": " + c.red + "One more warning is an automatic kick!");
+                        Player.GlobalMessageOps("To Ops" + c.white + " - " + pl.color + pl.name + c.white + " was warned by &aConsole");
+                        Server.s.Log(pl.name + " was warned by Console");
                     }
                     else
                     {
                         Player.SendMessage(pl, "Warned by &aConsole" + Server.DefaultColor + ": &c" + msg);
-                        Player.GlobalMessageOps("To Ops" + c.white + " - " + pl.color + pl.name + c.white + " was warned by &cConsole" + c.white +  ": " + c.red + msg);
+                        Player.GlobalMessageOps("To Ops" + c.white + " - " + pl.color + pl.name + c.white + " was warned by &aConsole" + c.white +  ": " + c.red + msg);
                         Server.s.Log(pl.name + " was warned by Console: " + msg);
                     }
                 }
@@ -88,7 +88,7 @@ namespace MCSong
                     Server.s.Log(pl.name + " was warned by " + p.name + ": " + msg);
                     if (p.group.Permission < Server.opchatperm)
                     {
-                        Player.SendMessage(p, pl.color + pl.name + c.white  + "was warned by " + p.color + p.name + c.white + ": " + c.red + msg);
+                        Player.SendMessage(p, pl.color + pl.name + c.white  +  "was warned by " + p.color + p.name + c.white + ": " + c.red + msg);
                     }
                 }
             }

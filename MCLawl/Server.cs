@@ -81,7 +81,7 @@ namespace MCSong
         public static PlayerList bannedIP;
         public static PlayerList whiteList;
         public static PlayerList ircControllers;
-        public static List<string> devs = new List<string>(new string[] { "727021", "minedroidftw" });
+        public static List<string> devs = new List<string>(new string[] { "727021" });
         public static List<string> staff = new List<string>(new string[] { });
 
         public static List<string> OmniBan = new List<string>();
@@ -118,7 +118,7 @@ namespace MCSong
         
         // Console Chat Sounds
         public static bool consoleSound = false;
-        public static struct Sound
+        public struct Sound
         {
             public static string join = "join.wav";
             public static string leave = "leave.wav";
@@ -187,9 +187,13 @@ namespace MCSong
         // Chat Spam Filter
         public static bool chatSpam = false;
         public static LevelPermission chatSpamRank = LevelPermission.Guest;
-        public static int chatSpamCount = 13;
-        public static int chatSpamSeconds = 5;
+        public static int chatSpamCount = 5;
         public static string chatSpamCon = "mute";
+
+        // Profanity Filter
+        public static bool swearFilter = false;
+        public static LevelPermission swearRank = LevelPermission.Operator;
+        public static string swearColor = "&c";
 
         public static int Overload = 1500;
         public static int rpLimit = 500;
@@ -301,6 +305,7 @@ namespace MCSong
             GrpCommands.fillRanks();
             Block.SetBlocks();
             Awards.Load();
+            ProfanityFilter.loadWords("text/swearwords.txt");
 
             if (File.Exists("text/emotelist.txt"))
             {
@@ -712,7 +717,6 @@ namespace MCSong
                 }
                 catch (SocketException e)
                 {
-                    Server.ErrorLog(e);
                     if (p != null)
                         p.Disconnect();
                 }
@@ -783,16 +787,19 @@ namespace MCSong
         }
 
         // OMNI BAN
-        public static void obUpdate()
+        public static void obUpdate(Player p)
         {
             try
             {
                 if (File.Exists("text/omniban.txt")) File.Delete("text/omniban.txt");
-                WebClient WEB = new WebClient();
-                WEB.DownloadFile("http://updates.mcsong.comule.com/.omniban", "omniban.txt");
-                File.Move("omniban.txt", "text/omniban.txt");
-                foreach (string line in File.ReadAllLines("text/omniban.txt")) Server.OmniBan.Add(line);
-                Server.s.Log("Omniban List Updated");
+                string[] omnibans = new WebClient().DownloadString("http://mcsong.comule.com/updates/.omniban").Split(';');
+                foreach (string ob in omnibans)
+                {
+                    if ((p.name == ob) || (p.ip == ob))
+                    {
+                        p.Kick("You have been omnibanned! mcsong.comule.com for appeal!");
+                    }
+                }
             }
             catch (Exception ex) { Server.s.Log("Omniban Update Failed!"); Server.ErrorLog(ex); }
         }
@@ -803,25 +810,20 @@ namespace MCSong
             {
                 if (!systemMsg)
                 {
-                    OnLog(DateTime.Now.ToString("(HH:mm:ss) ") + removeColors(message));
+                    OnLog(DateTime.Now.ToString("(HH:mm:ss) ") + message);
                 }
                 else
                 {
-                    OnSystem(DateTime.Now.ToString("(HH:mm:ss) ") + removeColors(message));
+                    OnSystem(DateTime.Now.ToString("(HH:mm:ss) ") + message);
                 }
             }
 
-            Logger.Write(DateTime.Now.ToString("(HH:mm:ss) ") + removeColors(message) + Environment.NewLine);
+            Logger.Write(DateTime.Now.ToString("(HH:mm:ss) ") + message + Environment.NewLine);
         }
 
-        public string removeColors(string message) // TODO = Fix this so it strips color codes from the string
+        public string removeColors(string message) // [TODO] strip color codes from messages
         {
-            try
-            {
-                int i = message.IndexOf('&');
-                return message.Remove(i, 1);
-            }
-            catch { return message; }
+            return null;
         }
 
         public static void Maintenance()

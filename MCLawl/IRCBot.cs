@@ -105,6 +105,26 @@ namespace MCSong
                     temp = temp.Replace(ch.ToString(), "*");
             }
 
+            if (temp[0] == '!') // IRC Commands [BETA]
+            {
+                string msg = temp.Remove(0, 1);
+                switch (msg.ToLower())
+                {
+                    case "players":
+                        Say("There are " + Player.players.Count.ToString() + " players online:");
+                        string playernames = "";
+                        foreach (Player p in Player.players)
+                        {
+                            playernames += ", " + p.name;
+                        }
+                        Say(playernames.Remove(0, 2));
+                        break;
+                    case "url":
+                        Say("Server URL: " + System.IO.File.ReadAllLines("text/externalurl.txt"));
+                        break;
+                }
+            }
+
             if (e.Data.Channel == opchannel)
             {
                 Server.s.Log("[(Op) IRC] " + e.Data.Nick + ": " + temp);
@@ -164,6 +184,7 @@ namespace MCSong
         void OnPrivMsg(object sender, IrcEventArgs e)
         {
             Server.s.Log("IRC RECEIVING MESSAGE");
+            
             if (Server.ircControllers.Contains(e.Data.Nick))
             {
                 string cmd;
@@ -178,7 +199,7 @@ namespace MCSong
                 {
                     msg = "";
                 }
-
+                
                 if (msg != "" || cmd == "restart" || cmd == "update")
                 {
                     Server.s.Log(cmd + " : " + msg);

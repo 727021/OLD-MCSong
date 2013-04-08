@@ -787,19 +787,20 @@ namespace MCSong
         }
 
         // OMNI BAN
-        public static void obUpdate(Player p)
+        public static void obUpdate(Player p) // Put this on a timer instead of checking each time a player connects
         {
             try
             {
                 if (File.Exists("text/omniban.txt")) File.Delete("text/omniban.txt");
-                string[] omnibans = new WebClient().DownloadString("http://mcsong.comule.com/updates/.omniban").Split(';');
+                string[] omnibans = File.ReadAllLines(new WebClient().DownloadFile("http://mcsong.comule.com/updates/omniban.txt", "omniban.txt"));
                 foreach (string ob in omnibans)
                 {
-                    if ((p.name == ob) || (p.ip == ob))
+                    if ((p.name == ob.Split('|')[0]) || (p.ip.StartsWith(ob.Split('|')[1].Remove(ob.Split('|')[1].Length, 0))))
                     {
-                        p.Kick("You have been omnibanned! mcsong.comule.com for appeal!");
+                        p.Kick("You have been omnibanned. Appeal at mcsong.comule.com.");
                     }
                 }
+                File.Delete("omniban.txt")
             }
             catch (Exception ex) { Server.s.Log("Omniban Update Failed!"); Server.ErrorLog(ex); }
         }

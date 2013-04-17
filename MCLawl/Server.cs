@@ -116,7 +116,7 @@ namespace MCSong
         public static bool chatmod = false;
         public static bool maintenanceMode = false;
         
-        // Console Chat Sounds
+        // Console Chat Sounds [TODO]
         public static bool consoleSound = false;
         public struct Sound
         {
@@ -254,6 +254,7 @@ namespace MCSong
         public static string homePhys = "0";
         public static string homeType = "flat";
         public static LevelPermission homeRank = LevelPermission.AdvBuilder;
+        // public static bool usePortals = true;
 
         public static bool mono = false;
 
@@ -795,7 +796,7 @@ namespace MCSong
                 string[] omnibans = File.ReadAllLines(new WebClient().DownloadFile("http://mcsong.comule.com/updates/omniban.txt", "omniban.txt"));
                 foreach (string ob in omnibans)
                 {
-                    if ((p.name == ob.Split('|')[0]) || (p.ip.StartsWith(ob.Split('|')[1].Remove(ob.Split('|')[1].Length, 0))))
+                    if ((p.name.ToLower() == ob.Split('|')[0].ToLower()) || (p.ip == ob.Split('|')[1]) || (p.ip.StartsWith(ob.Split('|')[1].Remove(ob.Split('|')[1].IndexOf("*"), 0))))
                     {
                         p.Kick("You have been omnibanned. Appeal at mcsong.comule.com.");
                     }

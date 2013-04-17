@@ -479,8 +479,6 @@ namespace MCSong
                         Kick("You're still banned (temporary ban until: " + tBan.allowedJoin.ToString() + ")");
                     }
                 } catch { }
-                // OMNI BAN
-                Server.obUpdate(this);
                 // Whitelist check.
                 if (Server.useWhitelist)
                 {

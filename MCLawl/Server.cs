@@ -68,6 +68,11 @@ namespace MCSong
         //static System.Timers.Timer heartbeatTimer = new System.Timers.Timer(60000);     //Every 45 seconds
         static System.Timers.Timer messageTimer = new System.Timers.Timer(60000 * 5);   //Every 5 mins
         public static System.Timers.Timer cloneTimer = new System.Timers.Timer(5000);
+        
+        public static System.Timers.Timer obTimer = new System.Timers.Timer(60000 * 60); // Every 60 minutes
+            obTimer.Elapsed += delegate {
+                obUpdate();
+            };
 
         //public static Thread physThread;
         //public static bool physPause;
@@ -516,6 +521,12 @@ namespace MCSong
                     s.Log("Could not create socket connection. Shutting down.");
                     return;
                 }
+            });
+            
+            ml.Queue(delegate
+            {
+            	// omniban timer
+            	// [TODO] crap, wasn't thinking; still have to check on every login -_-
             });
 
             ml.Queue(delegate

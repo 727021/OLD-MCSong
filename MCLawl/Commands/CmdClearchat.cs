@@ -12,30 +12,6 @@ namespace MCSong
 
         public override void Use(Player p, string message)
         {
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
-            Player.SendMessage(p, "\r\n");
         }
         public override void Help(Player p)
         {

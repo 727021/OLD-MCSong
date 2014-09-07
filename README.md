@@ -2,7 +2,7 @@
 
 <h3>Minecraft Classic Server Software</h3>
 
-<h3 style="color:red;">UPDATE:</h3><p style="color:red">MCSong is no longer in development, and the forums have been closed.The website has been removed, meaning servers can no longer be run and you cannot download the compiled software. Thanks to everyone who supported the MCSong community while it lasted.<br />- 727021</p>
+<h3>UPDATE:</h3><p>MCSong is no longer in development, and the forums have been closed.The website has been removed, meaning servers can no longer be run and you cannot download the compiled software. Thanks to everyone who supported the MCSong community while it lasted.<br />- 727021</p>
 
 
 <h2>Licenses</h2>
